@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dependencies\o1heap.h" />
+    <ClInclude Include="melody\base_object.hpp" />
+    <ClInclude Include="melody\graphics_data_item.hpp" />
+    <ClInclude Include="melody\shader_pass_descriptor.hpp" />
+    <ClInclude Include="melody\x360_shader_parameters_data_item.hpp" />
+    <ClInclude Include="recompiled\ppc\ppc_config.h" />
+    <ClInclude Include="recompiled\ppc\ppc_context.h" />
+    <ClInclude Include="recompiled\ppc\ppc_recomp_shared.h" />
+    <ClInclude Include="runtime\direct3d9\d3d9_x.hpp" />
+    <ClInclude Include="runtime\hook.hpp" />
+    <ClInclude Include="runtime\host\mutex.hpp" />
+    <ClInclude Include="runtime\kernel\free_list.hpp" />
+    <ClInclude Include="runtime\kernel\heap.hpp" />
+    <ClInclude Include="runtime\kernel\memory.hpp" />
+    <ClInclude Include="runtime\kernel\xam.hpp" />
+    <ClInclude Include="runtime\kernel\xdm.hpp" />
+    <ClInclude Include="runtime\xaudio\xaudio.hpp" />
+    <ClInclude Include="runtime\xenon\guest_stack_var.hpp" />
+    <ClInclude Include="runtime\xenon\guest_thread.hpp" />
+    <ClInclude Include="runtime\xenon\xcpu_context.hpp" />
+    <ClInclude Include="utils\xxhashmap.hpp" />
+    <ClInclude Include="utils\x_flipper_360.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dependencies\o1heap.c" />
+    <ClCompile Include="recompiled\ppc\ppc_func_mapping.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.0.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.1.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.10.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.100.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.101.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.102.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.103.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.104.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.105.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.11.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.12.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.13.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.14.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.15.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.16.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.17.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.18.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.19.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.2.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.20.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.21.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.22.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.23.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.24.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.25.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.26.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.27.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.28.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.29.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.3.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.30.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.31.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.32.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.33.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.34.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.35.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.36.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.37.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.38.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.39.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.4.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.40.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.41.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.42.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.43.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.44.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.45.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.46.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.47.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.48.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.49.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.5.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.50.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.51.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.52.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.53.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.54.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.55.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.56.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.57.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.58.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.59.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.6.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.60.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.61.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.62.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.63.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.64.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.65.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.66.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.67.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.68.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.69.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.7.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.70.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.71.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.72.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.73.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.74.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.75.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.76.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.77.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.78.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.79.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.8.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.80.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.81.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.82.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.83.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.84.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.85.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.86.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.87.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.88.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.89.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.9.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.90.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.91.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.92.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.93.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.94.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.95.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.96.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.97.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.98.cpp" />
+    <ClCompile Include="recompiled\ppc\ppc_recomp.99.cpp" />
+    <ClCompile Include="runtime\kernel\file_system.cpp" />
+    <ClCompile Include="runtime\kernel\heap.cpp" />
+    <ClCompile Include="runtime\kernel\imports.cpp" />
+    <ClCompile Include="runtime\kernel\memory.cpp" />
+    <ClCompile Include="runtime\kernel\xam.cpp" />
+    <ClCompile Include="runtime\kernel\xdm.cpp" />
+    <ClCompile Include="runtime\main.cpp" />
+    <ClCompile Include="runtime\patches\patches.cpp" />
+    <ClCompile Include="runtime\xaudio\driver\sdl2_driver.cpp" />
+    <ClCompile Include="runtime\xaudio\xaudio.cpp" />
+    <ClCompile Include="runtime\xenon\guest_thread.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e139369e-6fec-4b8c-b31e-258bec33801c}</ProjectGuid>
+    <RootNamespace>XCars</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/Zc:dllexportInlines- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/errorlimit:0 /force:multiple %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Winmm.lib;SDL2.lib;SDL2_mixer.lib;xxhash.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/Zc:dllexportInlines- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;SDL2.lib;SDL2_mixer.lib;xxhash.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/errorlimit:0 /force:multiple %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
