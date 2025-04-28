@@ -143,6 +143,7 @@
     <ClCompile Include="recompiled\ppc\ppc_recomp.97.cpp" />
     <ClCompile Include="recompiled\ppc\ppc_recomp.98.cpp" />
     <ClCompile Include="recompiled\ppc\ppc_recomp.99.cpp" />
+    <ClCompile Include="runtime\direct3d9\driver.cpp" />
     <ClCompile Include="runtime\kernel\file_system.cpp" />
     <ClCompile Include="runtime\kernel\heap.cpp" />
     <ClCompile Include="runtime\kernel\imports.cpp" />

@@ -468,5 +468,8 @@
     <ClCompile Include="runtime\patches\patches.cpp">
       <Filter>Source\Runtime\Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="runtime\direct3d9\driver.cpp">
+      <Filter>Source\Runtime\Direct3D 9</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
