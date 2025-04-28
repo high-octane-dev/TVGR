@@ -27,6 +27,7 @@
     <ClInclude Include="runtime\kernel\memory.hpp" />
     <ClInclude Include="runtime\kernel\xam.hpp" />
     <ClInclude Include="runtime\kernel\xdm.hpp" />
+    <ClInclude Include="runtime\logger.hpp" />
     <ClInclude Include="runtime\xaudio\xaudio.hpp" />
     <ClInclude Include="runtime\xenon\guest_stack_var.hpp" />
     <ClInclude Include="runtime\xenon\guest_thread.hpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="runtime\kernel\memory.cpp" />
     <ClCompile Include="runtime\kernel\xam.cpp" />
     <ClCompile Include="runtime\kernel\xdm.cpp" />
+    <ClCompile Include="runtime\logger.cpp" />
     <ClCompile Include="runtime\main.cpp" />
     <ClCompile Include="runtime\patches\patches.cpp" />
     <ClCompile Include="runtime\xaudio\driver\sdl2_driver.cpp" />

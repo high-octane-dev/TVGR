@@ -4,6 +4,7 @@
 #include "runtime/kernel/xam.hpp"
 #include "runtime/xaudio/xaudio.hpp"
 #include "runtime/xenon/guest_thread.hpp"
+#include "runtime/logger.hpp"
 #include "utils/xbox.h"
 #include "utils/xex.h"
 #include "utils/file.h"
@@ -15,6 +16,7 @@ Heap GLOBAL_USER_HEAP;
 void host_startup() {
 	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	GLOBAL_USER_HEAP.init();
+    logger::init("cars.log", true);
 	// hid::Init();
 }
 
