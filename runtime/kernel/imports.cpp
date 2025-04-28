@@ -62,7 +62,8 @@ struct Event final : KernelObject, HostObject<XKEVENT> {
         }
         else
         {
-            assert(false && "Unhandled timeout value.");
+            // FIXME: Why does UR reject non-infinite timeouts?
+            // assert(false && "Unhandled timeout value.");
         }
 
         return STATUS_SUCCESS;
@@ -438,6 +439,7 @@ uint32_t KeWaitForMultipleObjects(uint32_t Count, xpointer<XDISPATCHER_HEADER>* 
 uint32_t KeWaitForSingleObject(XDISPATCHER_HEADER* Object, uint32_t WaitReason, uint32_t WaitMode, bool Alertable, be<int64_t>* Timeout)
 {
     const uint32_t timeout = GuestTimeoutToMilliseconds(Timeout);
+    // FIXME: Why does UR reject non-infinite timeouts?
     // assert(timeout == INFINITE);
 
     switch (Object->Type)

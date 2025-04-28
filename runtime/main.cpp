@@ -22,7 +22,7 @@ void host_startup() {
 
 void guest_startup() {
     const auto game_content = XamMakeContent(XCONTENTTYPE_RESERVED, "Game");
-    XamRegisterContent(game_content, "/Data");
+    XamRegisterContent(game_content, "Data");
     XamRegisterContent(XamMakeContent(XCONTENTTYPE_SAVEDATA, "Save"), "Save");
 
     // Mount game
