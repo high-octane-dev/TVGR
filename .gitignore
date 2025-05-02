@@ -1,3 +1,5 @@
+*.exe
+*.xex
 recompiled/ppc/*.cpp
 recompiled/ppc/ppc_recomp_shared.h
 XCars/

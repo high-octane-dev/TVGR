@@ -1,0 +1,66 @@
+[main]
+file_path = "CarsX360_release_ltcg.xex"
+out_directory_path = "../recompiled/ppc"
+switch_table_file_path = "cars1_switch_tables.toml"
+
+skip_lr = false
+skip_msr = false
+ctr_as_local = false
+xer_as_local = false
+reserved_as_local = false
+cr_as_local = false
+non_argument_as_local = false
+non_volatile_as_local = false
+
+restgprlr_14_address = 0x822D8D30
+savegprlr_14_address = 0x822D8CE0
+restfpr_14_address = 0x822D9B5C
+savefpr_14_address = 0x822D9B10
+restvmx_14_address = 0x822DBCB8
+savevmx_14_address = 0x822DBA20
+restvmx_64_address = 0x822DBAB4
+savevmx_64_address = 0x822DBD4C
+
+longjmp_address = 0x822D9F80
+setjmp_address = 0x822DA0A0
+
+functions = [
+	{ address = 0x820c53e0, size = 0x234 },
+	{ address = 0x82109D18, size = 0xc08 },
+	{ address = 0x821519C0, size = 0x114 },
+	{ address = 0x8219FA70, size = 0x100 },
+	{ address = 0x82203058, size = 0x70 },
+	{ address = 0x822742A0, size = 0x78 },
+	{ address = 0x822C0098, size = 0x68 },
+	{ address = 0x822C0100, size = 0x64 },
+	{ address = 0x822C0168, size = 0x5c },
+	{ address = 0x822C01C8, size = 0x198 },
+	{ address = 0x822C0360, size = 0x16c },
+	{ address = 0x8230F470, size = 0x140 },
+	{ address = 0x8230F5B0, size = 0xf4 },
+	{ address = 0x8230FA20, size = 0x140 },
+	{ address = 0x8230FB60, size = 0xf4 },
+	{ address = 0x8230FCA8, size = 0x140 },
+	{ address = 0x823241E0, size = 0x5c },
+	{ address = 0x82343E98, size = 0x80 },
+	{ address = 0x82441918, size = 0xA4 },
+	{ address = 0x824B5988, size = 0x324 },
+	{ address = 0x824EBEC0, size = 0x1c4 },
+	{ address = 0x825193D8, size = 0x74 },
+	{ address = 0x8251a380, size = 0x16c },
+	{ address = 0x8251dcc8, size = 0x74 },
+	{ address = 0x8251ea28, size = 0x108 },
+	{ address = 0x824bbe70, size = 0x1ac },
+	{ address = 0x8247afd0, size = 0x68 },
+	{ address = 0x82441fe8, size = 0x108 },
+	{ address = 0x82430780, size = 0x148 },
+	{ address = 0x82332d60, size = 0xe4 },
+	{ address = 0x823a3c78, size = 0x108 },
+	{ address = 0x823a7180, size = 0x114 },
+	{ address = 0x8247b0d8, size = 0x88 },
+	{ address = 0x823c9110, size = 0x5d0 },
+	{ address = 0x82425910, size = 0x148 },
+	{ address = 0x82425328, size = 0x1c0 },
+	{ address = 0x82425d90, size = 0x140 },
+	{ address = 0x82109d00, size = 0xc20 }
+]
