@@ -112,6 +112,9 @@
     <ClInclude Include="runtime\logger.hpp">
       <Filter>Source\Runtime</Filter>
     </ClInclude>
+    <ClInclude Include="melody\x360_video_card.hpp">
+      <Filter>Source\Melody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="recompiled\ppc\ppc_func_mapping.cpp">
