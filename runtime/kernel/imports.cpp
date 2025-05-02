@@ -181,6 +181,55 @@ struct Semaphore final : KernelObject, HostObject<XKSEMAPHORE> {
     }
 };
 
+// I have literally no idea how this works. I literally just copied UR's Event impl and changed swapped every `true`/`false` in Wait.
+struct Mutant final : KernelObject, HostObject<XDISPATCHER_HEADER> {
+    std::atomic<bool> locked;
+
+    Mutant(XDISPATCHER_HEADER* header) : locked(!!header->SignalState)
+    {
+    }
+
+    Mutant(bool initially_locked) : locked(initially_locked)
+    {
+    }
+
+
+    uint32_t Wait(uint32_t timeout) override {
+        if (timeout == 0) {
+            bool expected = false;
+            if (!locked.compare_exchange_strong(expected, true)) {
+                return STATUS_TIMEOUT;
+            }
+        }
+        else if (timeout == INFINITE) {
+            while (true) {
+                bool expected = false;
+                if (locked.compare_exchange_weak(expected, true)) {
+                    break;
+                }
+
+                locked.wait(expected);
+            }
+        }
+        else {
+            std::chrono::time_point start_time = std::chrono::system_clock::now();
+            while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - start_time).count() < timeout) {
+                bool expected = false;
+                if (locked.compare_exchange_weak(expected, true)) {
+                    return STATUS_SUCCESS;
+                }
+                locked.wait(expected);
+            }
+            return STATUS_TIMEOUT;
+        }
+        return STATUS_SUCCESS;
+    }
+
+    void Release() {
+        locked = false;
+    }
+};
+
 std::uint32_t StubReturn0() { return 0; }
 std::uint32_t StubReturn1() { return 1; }
 
@@ -553,6 +602,20 @@ uint32_t NtCreateEvent(be<uint32_t>* handle, void* objAttributes, uint32_t event
     return 0;
 }
 
+uint32_t NtCreateMutant(be<uint32_t>* handle, void* objAttributes, uint32_t initialOwner) {
+    *handle = GetKernelHandle(CreateKernelObject<Mutant>(initialOwner ? true : false));
+    return 0;
+}
+
+uint32_t NtReleaseMutant(uint32_t handle, uint32_t unk) {
+    if (handle == GUEST_INVALID_HANDLE_VALUE) {
+        return 0xFFFFFFFF;
+    } else {
+        static_cast<Mutant*>(GetKernelObject(handle))->Release();
+        return 0;
+    }
+}
+
 uint32_t NtCreateFile(be<uint32_t>* FileHandle, uint32_t DesiredAccess, XOBJECT_ATTRIBUTES* Attributes, XIO_STATUS_BLOCK* IoStatusBlock, uint64_t* AllocationSize, uint32_t FileAttributes, uint32_t ShareAccess, uint32_t CreateDisposition, uint32_t CreateOptions) {
     logger::log_format("[NtCreateFile] WARN: Stub called!");
     return 0;
@@ -799,7 +862,7 @@ GuestFunctionStub(__imp__NtAllocateVirtualMemory);
 GuestFunctionHook(__imp__NtClose, NtClose);
 GuestFunctionHook(__imp__NtCreateEvent, NtCreateEvent);
 GuestFunctionHook(__imp__NtCreateFile, NtCreateFile);
-GuestFunctionStub(__imp__NtCreateMutant); // TVG
+GuestFunctionHook(__imp__NtCreateMutant, NtCreateMutant); // TVG
 GuestFunctionStub(__imp__NtDeviceIoControlFile); // TVG
 GuestFunctionStub(__imp__NtDuplicateObject);
 GuestFunctionStub(__imp__NtFlushBuffersFile);
@@ -815,7 +878,7 @@ GuestFunctionStub(__imp__NtQueryVirtualMemory);
 GuestFunctionHook(__imp__NtQueryVolumeInformationFile, NtQueryVolumeInformationFile);
 GuestFunctionHook(__imp__NtReadFile, NtReadFile);
 
-GuestFunctionStub(__imp__NtReleaseMutant);
+GuestFunctionHook(__imp__NtReleaseMutant, NtReleaseMutant);
 GuestFunctionHook(__imp__NtResumeThread, NtResumeThread);
 GuestFunctionHook(__imp__NtSetEvent, NtSetEvent);
 

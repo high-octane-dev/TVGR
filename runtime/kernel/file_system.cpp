@@ -156,7 +156,7 @@ FileHandle* XCreateFileA
     return fileHandle;
 }
 
-static uint32_t XGetFileSizeA(FileHandle* hFile, be<uint32_t>* lpFileSizeHigh) {
+uint32_t XGetFileSizeA(FileHandle* hFile, be<uint32_t>* lpFileSizeHigh) {
     std::error_code ec;
     auto fileSize = std::filesystem::file_size(hFile->path, ec);
     if (!ec)
@@ -165,7 +165,7 @@ static uint32_t XGetFileSizeA(FileHandle* hFile, be<uint32_t>* lpFileSizeHigh) {
         {
             *lpFileSizeHigh = uint32_t(fileSize >> 32U);
         }
-        logger::log_format("[XGetFileSizeExA] Got file size: {}", fileSize);
+        // logger::log_format("[XGetFileSizeExA] Got file size: {}", fileSize);
         return (uint32_t)(fileSize);
     }
     logger::log_format("[XGetFileSizeExA] Failed to get file size.");
@@ -181,7 +181,7 @@ uint32_t XGetFileSizeExA(FileHandle* hFile, LARGE_INTEGER* lpFileSize) {
         {
             lpFileSize->QuadPart = ByteSwap(fileSize);
         }
-        logger::log_format("[XGetFileSizeExA] Got file size: {}", fileSize);
+        // logger::log_format("[XGetFileSizeExA] Got file size: {}", fileSize);
         return TRUE;
     }
     logger::log_format("[XGetFileSizeExA] Failed to get file size.");
@@ -213,7 +213,7 @@ uint32_t XReadFile
     if (!hFile->stream.bad()) {
         numberOfBytesRead = uint32_t(hFile->stream.gcount());
         result = TRUE;
-        logger::log_format("[XReadFile] Successfully read bytes: {}", numberOfBytesRead);
+        // logger::log_format("[XReadFile] Successfully read bytes: {}", numberOfBytesRead);
 
     }
 
@@ -233,6 +233,9 @@ uint32_t XReadFile
 uint32_t XSetFilePointer(FileHandle* hFile, int32_t lDistanceToMove, be<int32_t>* lpDistanceToMoveHigh, uint32_t dwMoveMethod) {
     int32_t distanceToMoveHigh = lpDistanceToMoveHigh ? lpDistanceToMoveHigh->get() : 0;
     std::streamoff streamOffset = lDistanceToMove + (std::streamoff(distanceToMoveHigh) << 32U);
+
+    // logger::log_format("[XSetFilePointer] Seek attempted: {}, {}, {}", hFile->path.string(), streamOffset, dwMoveMethod);
+
     std::fstream::seekdir streamSeekDir = {};
     switch (dwMoveMethod)
     {
@@ -261,7 +264,7 @@ uint32_t XSetFilePointer(FileHandle* hFile, int32_t lDistanceToMove, be<int32_t>
     std::streampos streamPos = hFile->stream.tellg();
     if (lpDistanceToMoveHigh != nullptr)
         *lpDistanceToMoveHigh = int32_t(streamPos >> 32U);
-    logger::log_format("[XSetFilePointer] Seeked to {}!", uint32_t(streamPos));
+    // logger::log_format("[XSetFilePointer] Seeked to {}!", uint32_t(streamPos));
 
     return uint32_t(streamPos);
 }
@@ -295,7 +298,7 @@ uint32_t XSetFilePointerEx(FileHandle* hFile, int32_t lDistanceToMove, LARGE_INT
         lpNewFilePointer->QuadPart = ByteSwap(int64_t(hFile->stream.tellg()));
     }
 
-    logger::log_format("[XSetFilePointerEx] Seeked to {}!", uint32_t(hFile->stream.tellg()));
+    // logger::log_format("[XSetFilePointerEx] Seeked to {}!", uint32_t(hFile->stream.tellg()));
     return TRUE;
 }
 
@@ -361,7 +364,7 @@ uint32_t XReadFileEx(FileHandle* hFile, void* lpBuffer, uint32_t nNumberOfBytesT
     if (result) {
         lpOverlapped->Internal = 0;
         lpOverlapped->InternalHigh = numberOfBytesRead;
-        logger::log_format("[XReadFileEx] Read {} bytes from file!", numberOfBytesRead);
+        // logger::log_format("[XReadFileEx] Read {} bytes from file!", numberOfBytesRead);
 
     }
     else {
@@ -396,6 +399,8 @@ uint32_t XWriteFile(FileHandle* hFile, const void* lpBuffer, uint32_t nNumberOfB
 
 /*
 uint32_t _FSEEK(xpointer<FileHandle>* handle, uint32_t pos, uint32_t dir) {
+    logger::log_format("[_FSEEK] Seek attempted: {}, {}, {}", (*handle)->path.string(), pos, dir);
+
     std::fstream::seekdir streamSeekDir = {};
     switch (dir)
     {
