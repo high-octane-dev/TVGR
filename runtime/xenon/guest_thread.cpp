@@ -61,10 +61,12 @@ GuestThreadHandle::~GuestThreadHandle()
 
 uint32_t GuestThreadHandle::Wait(uint32_t timeout)
 {
+    // FIXME: Handle non-infinite timeouts.
     assert(timeout == INFINITE);
 
-    if (thread.joinable())
+    if (thread.joinable()) {
         thread.join();
+    }
 
     return STATUS_WAIT_0;
 }

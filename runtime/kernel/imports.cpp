@@ -11,6 +11,7 @@
 #include "runtime/kernel/xam.hpp"
 #include "runtime/kernel/heap.hpp"
 #include "runtime/xaudio/xaudio.hpp"
+#include "runtime/logger.hpp"
 
 struct Event final : KernelObject, HostObject<XKEVENT> {
     bool manual_reset;
@@ -60,12 +61,23 @@ struct Event final : KernelObject, HostObject<XKEVENT> {
                 }
             }
         }
-        else
-        {
-            // FIXME: Why does UR reject non-infinite timeouts?
-            // assert(false && "Unhandled timeout value.");
+        else {
+            // FIXME: Is this what we're supposed to do?
+            if (manual_reset) {
+                signaled.wait(false);
+            }
+            else {
+                std::chrono::time_point start_time = std::chrono::system_clock::now();
+                while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - start_time).count() < timeout) {
+                    bool expected = true;
+                    if (signaled.compare_exchange_weak(expected, false)) {
+                        return STATUS_SUCCESS;
+                    }
+                    signaled.wait(expected);
+                }
+                return STATUS_TIMEOUT;
+            }
         }
-
         return STATUS_SUCCESS;
     }
 
@@ -138,7 +150,21 @@ struct Semaphore final : KernelObject, HostObject<XKSEMAPHORE> {
         }
         else
         {
-            assert(false && "Unhandled timeout value.");
+            // FIXME: Is this what we're supposed to do?
+            uint32_t currentCount;
+            std::chrono::time_point start_time = std::chrono::system_clock::now();
+            while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - start_time).count() < timeout) {
+                currentCount = count.load();
+                if (currentCount != 0) {
+                    if (count.compare_exchange_weak(currentCount, currentCount - 1)) {
+                        return STATUS_SUCCESS;
+                    }
+                }
+                else {
+                    count.wait(0);
+                }
+            }
+
             return STATUS_TIMEOUT;
         }
     }
@@ -400,9 +426,7 @@ uint32_t KeTlsSetValue(uint32_t dwTlsIndex, uint32_t lpTlsValue)
 uint32_t KeWaitForMultipleObjects(uint32_t Count, xpointer<XDISPATCHER_HEADER>* Objects, uint32_t WaitType, uint32_t WaitReason, uint32_t WaitMode, uint32_t Alertable, be<int64_t>* Timeout)
 {
     // FIXME: This function is only accounting for events.
-
     const uint64_t timeout = GuestTimeoutToMilliseconds(Timeout);
-    assert(timeout == INFINITE);
 
     if (WaitType == 0) // Wait all
     {
@@ -439,8 +463,6 @@ uint32_t KeWaitForMultipleObjects(uint32_t Count, xpointer<XDISPATCHER_HEADER>* 
 uint32_t KeWaitForSingleObject(XDISPATCHER_HEADER* Object, uint32_t WaitReason, uint32_t WaitMode, bool Alertable, be<int64_t>* Timeout)
 {
     const uint32_t timeout = GuestTimeoutToMilliseconds(Timeout);
-    // FIXME: Why does UR reject non-infinite timeouts?
-    // assert(timeout == INFINITE);
 
     switch (Object->Type)
     {
@@ -532,7 +554,36 @@ uint32_t NtCreateEvent(be<uint32_t>* handle, void* objAttributes, uint32_t event
 }
 
 uint32_t NtCreateFile(be<uint32_t>* FileHandle, uint32_t DesiredAccess, XOBJECT_ATTRIBUTES* Attributes, XIO_STATUS_BLOCK* IoStatusBlock, uint64_t* AllocationSize, uint32_t FileAttributes, uint32_t ShareAccess, uint32_t CreateDisposition, uint32_t CreateOptions) {
+    logger::log_format("[NtCreateFile] WARN: Stub called!");
     return 0;
+}
+
+void NtOpenFile() {
+    logger::log_format("[NtOpenFile] WARN: Stub called!");
+}
+
+void NtQueryDirectoryFile() {
+    logger::log_format("[NtQueryDirectoryFile] WARN: Stub called!");
+}
+
+void NtQueryFullAttributesFile() {
+    logger::log_format("[NtQueryFullAttributesFile] WARN: Stub called!");
+}
+
+void NtQueryInformationFile() {
+    logger::log_format("[NtQueryInformationFile] WARN: Stub called!");
+}
+
+void NtQueryVolumeInformationFile() {
+    logger::log_format("[NtQueryVolumeInformationFile] WARN: Stub called!");
+}
+
+void NtReadFile() {
+    logger::log_format("[NtReadFile] WARN: Stub called!");
+}
+
+void NtSetInformationFile() {
+    logger::log_format("[NtSetInformationFile] WARN: Stub called!");
 }
 
 uint32_t NtResumeThread(GuestThreadHandle* hThread, uint32_t* suspendCount) {
@@ -560,14 +611,12 @@ uint32_t NtSuspendThread(GuestThreadHandle* hThread, uint32_t* suspendCount) {
 
 uint32_t NtWaitForSingleObjectEx(uint32_t Handle, uint32_t WaitMode, uint32_t Alertable, be<int64_t>* Timeout) {
     uint32_t timeout = GuestTimeoutToMilliseconds(Timeout);
-    assert(timeout == 0 || timeout == INFINITE);
-
+    
     if (IsKernelObject(Handle))
     {
         return GetKernelObject(Handle)->Wait(timeout);
     }
-    else
-    {
+    else {
         assert(false && "Unrecognized handle value.");
     }
 
@@ -755,17 +804,23 @@ GuestFunctionStub(__imp__NtDeviceIoControlFile); // TVG
 GuestFunctionStub(__imp__NtDuplicateObject);
 GuestFunctionStub(__imp__NtFlushBuffersFile);
 GuestFunctionStub(__imp__NtFreeVirtualMemory);
-GuestFunctionStub(__imp__NtOpenFile);
-GuestFunctionStub(__imp__NtQueryDirectoryFile);
-GuestFunctionStub(__imp__NtQueryFullAttributesFile);
-GuestFunctionStub(__imp__NtQueryInformationFile);
+
+GuestFunctionHook(__imp__NtOpenFile, NtOpenFile);
+GuestFunctionHook(__imp__NtQueryDirectoryFile, NtQueryDirectoryFile);
+GuestFunctionHook(__imp__NtQueryFullAttributesFile, NtQueryFullAttributesFile);
+GuestFunctionHook(__imp__NtQueryInformationFile, NtQueryInformationFile);
+
 GuestFunctionStub(__imp__NtQueryVirtualMemory);
-GuestFunctionStub(__imp__NtQueryVolumeInformationFile);
-GuestFunctionStub(__imp__NtReadFile);
+
+GuestFunctionHook(__imp__NtQueryVolumeInformationFile, NtQueryVolumeInformationFile);
+GuestFunctionHook(__imp__NtReadFile, NtReadFile);
+
 GuestFunctionStub(__imp__NtReleaseMutant);
 GuestFunctionHook(__imp__NtResumeThread, NtResumeThread);
 GuestFunctionHook(__imp__NtSetEvent, NtSetEvent);
-GuestFunctionStub(__imp__NtSetInformationFile);
+
+GuestFunctionHook(__imp__NtSetInformationFile, NtSetInformationFile);
+
 GuestFunctionHook(__imp__NtSuspendThread, NtSuspendThread);
 GuestFunctionStub(__imp__NtWaitForMultipleObjectsEx);
 GuestFunctionHook(__imp__NtWaitForSingleObjectEx, NtWaitForSingleObjectEx);
